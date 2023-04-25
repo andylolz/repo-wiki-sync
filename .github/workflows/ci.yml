@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  push:
+  gollum:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Push everywhere
+        run: |
+          git remote add wiki git@github.com:andylolz/repo-wiki-sync.wiki.git
+          git push wiki
+          git push origin
