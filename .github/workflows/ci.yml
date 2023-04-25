@@ -2,6 +2,8 @@ name: Build
 
 on:
   push:
+    branches:
+      - main
   gollum:
 
 jobs:
@@ -12,9 +14,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          persist-credentials: true
-      - name: Push everywhere
-        run: |
-          git remote add wiki git@github.com:andylolz/repo-wiki-sync.wiki.git
-          git push wiki
-          git push origin
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          branch: master
+          repository: andylolz/repo-wiki-sync.wiki
