@@ -1,0 +1,20 @@
+name: Sync to repo
+
+on:
+  gollum:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout wiki code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          repository: ${{github.repository}}.wiki
+      - name: Push changes
+        run: |
+          git remote add repo https://andylolz:${{ secrets.GITHUB_TOKEN }}@github.com/andylolz/repo-wiki-sync.git
+          git push --force repo master:main
+
